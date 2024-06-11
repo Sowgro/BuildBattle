@@ -188,7 +188,9 @@ Time-Manager:
       Plot: 20
     # Total build time
     In-Game: 540
-
+  # Set custom times for each arena
+  Arena-Game-Time-Override:
+    default: 600
 
 Mob:
   # Should mob spawning on arenas be enabled?

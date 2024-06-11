@@ -56,7 +56,13 @@ public class InGameState extends PluginInGameState {
           // may consider start to build message...
           pluginArena.setArenaInGameState(BaseArena.ArenaInGameState.BUILD_TIME);
 
-          setArenaTimer(getPlugin().getConfig().getInt("Time-Manager." + pluginArena.getArenaType().getPrefix() + ".In-Game"));
+          int timeOverrride;
+          if ((timeOverrride = getPlugin().getConfig().getInt("Time-Manager.Arena-Game-Time-Override."+pluginArena.getId(), 0)) != 0) {
+            setArenaTimer(timeOverrride);
+          }
+          else {
+            setArenaTimer(getPlugin().getConfig().getInt("Time-Manager." + pluginArena.getArenaType().getPrefix() + ".In-Game"));
+          }
 
           if(pluginArena.getVotePoll() != null && pluginArena.getTheme().equals("Theme")) {
             pluginArena.setTheme(pluginArena.getVotePoll().getVotedTheme());

@@ -74,7 +74,13 @@ public class InGameState extends PluginInGameState {
           Bukkit.getScheduler().runTaskLater(getPlugin(), () -> pluginArena.getCurrentBuilders().forEach(player -> player.setGameMode(GameMode.CREATIVE)), 40);
           pluginArena.getCurrentBuilders().forEach(pluginArena::addMenuItem);
 
-          setArenaTimer(getPlugin().getConfig().getInt("Time-Manager." + pluginArena.getArenaType().getPrefix() + ".In-Game"));
+          int timeOverrride;
+          if ((timeOverrride = getPlugin().getConfig().getInt("Time-Manager.Arena-Game-Time-Override."+pluginArena.getId(), 0)) != 0) {
+            setArenaTimer(timeOverrride);
+          }
+          else {
+            setArenaTimer(getPlugin().getConfig().getInt("Time-Manager." + pluginArena.getArenaType().getPrefix() + ".In-Game"));
+          }
           pluginArena.setArenaInGameState(BaseArena.ArenaInGameState.BUILD_TIME);
           break;
         }
